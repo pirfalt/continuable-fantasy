@@ -53,7 +53,7 @@ Since it is based of [continuable][cont] any error will short circuit the chain 
 
 ### Extender/Decorator
 
-#### ContinuableFantasy( Continuable\<T\> ) => contFantasy\<T\>
+#### ` ContinuableFantasy( Continuable<T> ) => contFantasy<T> `
 
     var contBuffer = fs.readFile.bind(null, 'fileName')
 
@@ -61,14 +61,14 @@ Since it is based of [continuable][cont] any error will short circuit the chain 
     ContinuableFantasy(contBuffer)
 
 ### Instanse methods
-#### contFantasy\<A\>.map( func:(A) => B ) => contFantasy\<B\>
+#### ` contFantasy<A>.map( func:(A) => B ) => contFantasy<B> `
 
     contFantasy<Buffer>.map(function(buffer) {
       return buffer.toString()
     })
     // => contFantasy<String>
 
-#### contFantasy\<A\>.chain( func:(A) => contFantasy\<B\> ) => contFanasy\<B\>
+#### ` contFantasy<A>.chain( func:(A) => contFantasy<B> ) =>  `contFanasy<B>
 
     contFantasy<String>.chain(function(str) {
       var json = JSON.parse(str)
@@ -77,7 +77,7 @@ Since it is based of [continuable][cont] any error will short circuit the chain 
     })
     // => contFantasy<Buffer>
 
-#### contFantasy\<A\>.consume( (Error) => void, (A) => void ) => void
+#### ` contFantasy<A>.consume( (Error) => void, (A) => void ) => void `
 
     contFantasy<String>.consume(
       function(error) {
@@ -91,20 +91,20 @@ Since it is based of [continuable][cont] any error will short circuit the chain 
 
 ### Static methods
 
-#### ContinuableFantasy.of( Value ) => contFantasy\<Value\>
+#### ` ContinuableFantasy.of( Value ) => contFantasy<Value> `
 
     ContinuableFantasy.of( 'Hello' ).consume(null, function(s) {
       assert.equal(s, 'Hello')
     })
 
-#### ContinuableFantasy.error( Error ) => contFantasy\<void\>
+#### ` ContinuableFantasy.error( Error ) => contFantasy<void> `
 
     var error = new Error('Bad bad thing, do not throw in node')
     ContinuableFantasy.error( err ).consume(function(err) {
       assert.equal(err, error)
     }) // Did not handle success
 
-#### ContinuableFantasy.join( Continuable\<Continuable\<T\>\> ) => contFantasy\<T\>
+#### ` ContinuableFantasy.join( Continuable<Continuable<T>> ) => contFantasy<T> `
 
     var contOfA = ContinuableFantasy.of('So nested')
     var contOfContOfA = ContinuableFantasy.of(contOfA)
