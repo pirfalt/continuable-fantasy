@@ -20,6 +20,12 @@ function ContinuableAlgebra(cont) {
     return cont
 }
 
-ContinuableAlgebra.of = continuable.of
-ContinuableAlgebra.error = continuable.error
-ContinuableAlgebra.join = continuable.join
+ContinuableAlgebra.of = function(value) {
+    return ContinuableAlgebra( continuable.of(value) )
+}
+ContinuableAlgebra.error = function(error) {
+    return ContinuableAlgebra( continuable.error(error) )
+}
+ContinuableAlgebra.join = function(cont) {
+    return ContinuableAlgebra( continuable.join(cont) )
+}

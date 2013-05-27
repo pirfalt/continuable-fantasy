@@ -1,0 +1,17 @@
+{
+  "name": "continuable-fantasy",
+  "version": "0.0.0",
+  "description": "Turn the very awesome [continuable][cont] into a [fantasy land][fantasy] compliant monad.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "51cc142b8bf8db80a7e4527b582c54c7d9061b84"
+}
