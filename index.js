@@ -1,31 +1,51 @@
 var continuable = require('continuable')
 var consume = require('consume')
 
-module.exports = ContinuableAlgebra
+module.exports = ContFantasy
 
-function ContinuableAlgebra(cont) {
+function ContFantasy(source, decorate) {
+    if (typeof source !== 'function')
+        throw new Error('Continuable only works with functions')
 
-    cont.constructor = ContinuableAlgebra
+    var continuable = decorate
+        ? source
+        : function (callback) {
+            source(callback) // Do what source does
+        }
 
-    cont.map = function (lambda) {
-        return ContinuableAlgebra( continuable.map(cont, lambda) )
-    }
-    cont.chain = function (lambda) {
-        return ContinuableAlgebra( continuable.chain(cont, lambda) )
-    }
-    cont.consume = function(onError, onValue) {
-        cont(consume(onError, onValue))
-    }
+    continuable.constructor = ContFantasy
 
-    return cont
+    continuable.chain = chainer
+    continuable.map = maper
+    continuable.join = joiner
+    continuable.consume = consumer
+
+    return continuable
 }
 
-ContinuableAlgebra.of = function(value) {
-    return ContinuableAlgebra( continuable.of(value) )
+ContFantasy.of = function(value) {
+    return ContFantasy( continuable.of(value) )
 }
-ContinuableAlgebra.error = function(error) {
-    return ContinuableAlgebra( continuable.error(error) )
+ContFantasy.error = function(error) {
+    return ContFantasy( continuable.error(error) )
 }
-ContinuableAlgebra.join = function(cont) {
-    return ContinuableAlgebra( continuable.join(cont) )
+ContFantasy.join = function(cont) {
+    return ContFantasy( continuable.join(cont) )
+}
+
+
+function chainer(lambda) {
+    return ContFantasy( continuable.chain(this, lambda) )
+}
+
+function maper(lambda) {
+    return ContFantasy( continuable.map(this, lambda) )
+}
+
+function consumer(onError, onValue) {
+    this(consume(onError, onValue))
+}
+
+function joiner() {
+    return ContFantasy( continuable.join(this) )
 }
