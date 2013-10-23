@@ -1,6 +1,6 @@
 {
   "name": "continuable-fantasy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Fantasy-land compliant continuables",
   "main": "index.js",
   "directories": {
