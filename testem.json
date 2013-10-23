@@ -1,0 +1,23 @@
+{
+	"framework": "tap",
+	
+	"launchers": {
+		"Node": {
+			"command": "node test/index.js",
+			"protocol": "tap"
+		}
+	},
+	
+	"src_files": [
+		"test/*.js",
+		"*.js"
+	],
+  "serve_files": [
+    "browserified.js"
+  ],
+  
+  "before_tests": "browserify test/index.js -o browserified.js",
+  "on_exit": "rm browserified.js",
+  
+  "launch_in_dev": [ "node" ]
+}
