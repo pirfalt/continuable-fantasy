@@ -10,7 +10,7 @@ function ContFantasy(source, decorate) {
     var continuable = decorate
         ? source
         : function (callback) {
-            source(callback) // Do what source does
+            return source(callback) // Do what source does
         }
 
     continuable.constructor = ContFantasy
@@ -43,7 +43,7 @@ function maper(lambda) {
 }
 
 function consumer(onError, onValue) {
-    this(consume(onError, onValue))
+    return this(consume(onError, onValue))
 }
 
 function joiner() {
